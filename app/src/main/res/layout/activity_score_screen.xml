@@ -43,7 +43,7 @@
 
 
     <Button
-        android:id="@+id/addPointToFirtsTeam"
+        android:id="@+id/btnAddPointToFirtsTeam"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -53,11 +53,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/addPointToSecondTeam"
+        android:id="@+id/btnAddPointToSecondTeam"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="+ 1 point for SECOND team"
-        app:layout_constraintBottom_toBottomOf="@+id/addPointToFirtsTeam"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddPointToFirtsTeam"
         app:layout_constraintEnd_toEndOf="parent" />
 
 

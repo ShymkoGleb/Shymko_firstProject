@@ -17,40 +17,65 @@ class ScoreScreenActivity : AppCompatActivity() {
             val intent = Intent(context, ScoreScreenActivity::class.java)
             context.startActivity(intent)
         }
+        var startGame = true
+        var scoreOfFirstTeam:Int = 0
+        var scoreOfSecondTeam:Int = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_score_screen)
-
+        startGame = true
+        scoreOfFirstTeam = 0
+        scoreOfSecondTeam = 0
+        tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
+        tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
+        Log.d("CustomDebug","OnCreate 1st, startGame= $startGame")
         val firstTeam: String? = intent.getStringExtra("firstTeam")
         val secondTeam: String? = intent.getStringExtra("secondTeam")
-        timeCalculation()
+        onStart()
     }
 
     override fun onStart() {
         super.onStart()
-        fun timeCalculation() {
+        if(startGame==true){
+            btnAddPointToFirtsTeam.isClickable = true
+            btnAddPointToSecondTeam.isClickable = true
+            timeCalculation()
+            Log.d("CustomDebug","OnStart 1st, startGame= $startGame")
+            btnAddPointToFirtsTeam.setOnClickListener{
+                scoreOfFirstTeam ++
+            }
+            btnAddPointToSecondTeam.setOnClickListener{
+                scoreOfSecondTeam ++
+            }
 
+        }else{
+            btnAddPointToFirtsTeam.isClickable = false
+            btnAddPointToSecondTeam.isClickable = false
+
+            Toast.makeText(this,"Game is over",Toast.LENGTH_SHORT)
         }
-    }
 
+    }
 
     fun timeCalculation() {
 
-        var timeOfHid: Long = ((100 + 1) / 10) * 1000
-        object : CountDownTimer(timeOfHid, 1000) {
+        object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                Log.d("onTick", "hello on tick")
                 tvCountdownTimer.text = "Timer: " + millisUntilFinished / 1000
+                tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
+                tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
             }
 
             override fun onFinish() {
                 //Toast.makeText(, "TIME IS UP", Toast.LENGTH_SHORT).show()
-                Log.d("onFinish", "TIME IS UP")
+                Log.d("CustomDebug", "onFinish, TIME IS UP")
+                startGame = false
+                Log.d("CustomDebug", "onFinish, startGame ==$startGame")
+                tvCountdownTimer.text = "Timer: " + "is UP"
                 onStart()
             }
         }.start()
-
     }
 }
