@@ -6,4 +6,70 @@
     android:layout_height="match_parent"
     tools:context=".Activity.WinnerScreenActivity">
 
+    <TextView
+        android:id="@+id/tvTEXTTheWinnerIs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The winner is:"
+        android:textSize="36sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvWinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Winner"
+        android:textSize="36sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTEXTTheWinnerIs"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTEXTWithTheScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="With the score:"
+        android:textSize="36sp"
+        app:layout_constraintTop_toBottomOf="@id/tvWinner"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tvScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Score"
+        android:textSize="36sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTEXTWithTheScore"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btnGotoMainFromWS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List of Start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"/>
+
+    <Button
+        android:id="@+id/btnGotoLOWFromWS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List of Winners"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="30dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

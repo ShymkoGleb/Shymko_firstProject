@@ -35,7 +35,7 @@
         tools:layout_editor_absoluteX="10dp" />
 
     <Button
-        android:id="@+id/btnGoMainFromLOW"
+        android:id="@+id/btnGotoMainFromLOW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Сlear List Of Winners"
-        app:layout_constraintBottom_toTopOf="@+id/btnGoMainFromLOW"
+        app:layout_constraintBottom_toTopOf="@+id/btnGotoMainFromLOW"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />

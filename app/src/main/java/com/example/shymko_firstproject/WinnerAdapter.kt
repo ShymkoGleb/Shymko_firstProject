@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.layout_recycler.view.*
 
 class WinnerAdapter(
     var winner: List<Winner>
@@ -21,8 +22,8 @@ class WinnerAdapter(
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
         holder.itemView.apply {
-           // tvFirstName.text = winner[position].fullName
-            //  tvSecondName.text = person[position].secondName
+            tvNameOfWinner.text = winner[position].name
+            tvScoreOfWinner.text = winner[position].score.toString()
         }
     }
 }

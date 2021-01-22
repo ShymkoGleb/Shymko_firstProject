@@ -1,8 +1,11 @@
 package com.example.shymko_firstproject
 
 class Winner (
-    var name:String
+    var name:String,
+    var score:Int
         ){
-    val winnerList = mutableListOf<Winner>()
-    val adapter = WinnerAdapter(winnerList)
+    companion object{
+        val listOfWinner = mutableListOf<Winner>()
+    }
+
 }

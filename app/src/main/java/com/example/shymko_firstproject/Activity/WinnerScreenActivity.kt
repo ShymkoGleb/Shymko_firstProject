@@ -5,6 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.shymko_firstproject.R
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_score_screen.*
+import kotlinx.android.synthetic.main.activity_winner_screen.*
 
 class WinnerScreenActivity : AppCompatActivity() {
     companion object{
@@ -17,5 +20,22 @@ class WinnerScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_winner_screen)
+        val winner: String? = intent.getStringExtra("winner")
+        val score: String? = intent.getStringExtra("score")
+        tvWinner.text = winner
+        tvScore.text = score
+
+    setupButtomListener()
+
     }
+
+    fun setupButtomListener(){
+        btnGotoMainFromWS.setOnClickListener {
+            MainActivity.start(this)
+        }
+        btnGotoLOWFromWS.setOnClickListener {
+            ListOfWinnersActivity.start(this)
+        }
+    }
+
 }

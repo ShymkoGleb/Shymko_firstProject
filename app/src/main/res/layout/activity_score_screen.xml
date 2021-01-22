@@ -10,47 +10,85 @@
         android:id="@+id/tvCountdownTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="50dp"
         android:hint="Timer"
         android:inputType="time"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@+id/tvGamaIsCanceled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="GamaIsCanceled"
+        android:textSize="35sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="350dp"/>
 
     <TextView
         android:id="@+id/tvScoreOfFirstTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:hint="Score 1st team"
+        android:hint="1st team"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCountdownTimer" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="150dp"/>
 
 
     <TextView
         android:id="@+id/tvScoreOfSecondTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:hint="Score 2nd team"
+        android:layout_marginEnd="60dp"
+        android:gravity="right"
+        android:hint=" 2nd team"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCountdownTimer" />
+        app:layout_constraintTop_toTopOf="@id/tvScoreOfFirstTeam" />
+
+
+    <TextView
+        android:id="@+id/tvNameOfFirstTeam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Name 1st "
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvScoreOfFirstTeam"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="15dp"/>
+
+
+    <TextView
+        android:id="@+id/tvNameOfSecondTeam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="right"
+        android:hint="Name 2nd "
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintTop_toBottomOf="@id/tvScoreOfSecondTeam"
+        android:layout_marginTop="15dp"/>
 
 
     <Button
         android:id="@+id/btnAddPointToFirtsTeam"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="32dp"
         android:text="+ 1 point for FIRST team"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="100dp"/>
 
     <Button
         android:id="@+id/btnAddPointToSecondTeam"
@@ -58,7 +96,19 @@
         android:layout_height="wrap_content"
         android:text="+ 1 point for SECOND team"
         app:layout_constraintBottom_toBottomOf="@+id/btnAddPointToFirtsTeam"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="15dp"/>
+
+    <Button
+        android:id="@+id/btnCancelGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel Game"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,7 @@ class ListOfWinnersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_winners)
 
-        btnGoMainFromLOW.setOnClickListener{
+        btnGotoMainFromLOW.setOnClickListener{
             MainActivity.start(this)
         }
     }

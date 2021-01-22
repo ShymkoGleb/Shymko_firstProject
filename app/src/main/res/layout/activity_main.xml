@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etNameOfSecondTeam" />
 
     <Button
-        android:id="@+id/btnGotoListOfWinnersFromMain"
+        android:id="@+id/btnGotoLOWFromMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
