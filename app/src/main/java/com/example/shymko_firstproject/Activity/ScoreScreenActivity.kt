@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.shymko_firstproject.R
 import kotlinx.android.synthetic.main.activity_score_screen.*
 
@@ -51,8 +52,11 @@ class ScoreScreenActivity : AppCompatActivity() {
             }
 
         }else{
+
             btnAddPointToFirtsTeam.isClickable = false
             btnAddPointToSecondTeam.isClickable = false
+            btnAddPointToFirtsTeam.isVisible = false
+            btnAddPointToSecondTeam.isVisible = false
 
             Toast.makeText(this,"Game is over",Toast.LENGTH_SHORT)
         }
