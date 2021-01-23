@@ -27,6 +27,7 @@ class WinnerScreenActivity : AppCompatActivity() {
 
     setupButtomListener()
 
+
     }
 
     fun setupButtomListener(){
@@ -36,6 +37,22 @@ class WinnerScreenActivity : AppCompatActivity() {
         btnGotoLOWFromWS.setOnClickListener {
             ListOfWinnersActivity.start(this)
         }
+        btnShareResult.setOnClickListener {
+            shareResult()
+        }
+    }
+
+    fun shareResult(){
+        val winner: String? = intent.getStringExtra("winner")
+        val score: String? = intent.getStringExtra("score")
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "The winner of this mutch is $winner, with the score:$score")
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
 }
