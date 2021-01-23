@@ -6,6 +6,6 @@ class Winner (
         ){
     companion object{
         val listOfWinner = mutableListOf<Winner>()
+        val sortedListOfWinner = listOfWinner.sortedByDescending { listOfWinner-> listOfWinner.score }
     }
-
 }
