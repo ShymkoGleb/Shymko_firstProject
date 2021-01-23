@@ -21,15 +21,29 @@ class ListOfWinnersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_winners)
+        val sortedListOfWinner = Winner.listOfWinner.sortedByDescending {it->it.score }
 
-        val adapter = WinnerAdapter(Winner.listOfWinner)
+        val adapter = WinnerAdapter(sortedListOfWinner)
         rvListOfWinners.adapter = adapter
         rvListOfWinners.layoutManager = LinearLayoutManager(this)
-        adapter.notifyItemInserted(Winner.listOfWinner.size - 1)
+        adapter.notifyItemInserted(sortedListOfWinner.size - 1)
 
+        setupButtonListeners()
 
+    }
+
+    fun setupButtonListeners(){
         btnGotoMainFromLOW.setOnClickListener{
             MainActivity.start(this)
         }
+        btnClearListOfWinners.setOnClickListener {
+            clearListOfWinner()
+        }
     }
+
+    private fun clearListOfWinner() {
+        Winner.listOfWinner.clear()
+        ListOfWinnersActivity.start(this)
+    }
+
 }

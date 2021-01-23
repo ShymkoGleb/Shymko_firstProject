@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.shymko_firstproject.R
@@ -43,8 +44,6 @@ class ScoreScreenActivity : AppCompatActivity() {
             "CustomDebug",
             "OnCreate 1st, firstTeamCompanion= $firstTeam, secondTeamCompanion= $secondTeam"
         )
-
-        onStart()
     }
 
     override fun onStart() {
@@ -72,8 +71,9 @@ class ScoreScreenActivity : AppCompatActivity() {
             //Toast.makeText(this, "Game is over", Toast.LENGTH_SHORT)
             if (!cancelGame && !startGame) {
                 btnCancelGame.isVisible = false
-                scoreComporison()
+                scoreComorison()
             }
+
         }
     }
 
@@ -96,7 +96,7 @@ class ScoreScreenActivity : AppCompatActivity() {
         }.start()
     }
 
-    fun scoreComporison() {
+    fun scoreComorison() {
         val firstTeam: String = intent.getStringExtra("firstTeam").toString()
         if (scoreOfFirstTeam > scoreOfSecondTeam) {
             Winner.listOfWinner.add(Winner(firstTeam, scoreOfFirstTeam))
