@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.shymko_firstproject.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -27,19 +28,20 @@ class   MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupButtomListener()
+    }
 
+    fun setupButtomListener(){
         btnAddTeamsAndStartGame.setOnClickListener {
             val nameOfFirstTeam = etNameOfFirstTeam.text.toString()
             val nameOfSecondTeam = etNameOfSecondTeam.text.toString()
-
             val intent = Intent(this, ScoreScreenActivity::class.java)
             intent.putExtra("firstTeam", nameOfFirstTeam)
             intent.putExtra("secondTeam", nameOfSecondTeam)
             startActivity(intent)
         }
-
         btnGotoLOWFromMain.setOnClickListener {
-            ListOfWinnersActivity.start(this)
+        ListOfWinnersActivity.start(this)
         }
     }
 }

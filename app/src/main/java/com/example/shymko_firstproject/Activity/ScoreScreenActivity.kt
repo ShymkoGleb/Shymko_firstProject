@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.shymko_firstproject.R
@@ -20,8 +19,8 @@ class ScoreScreenActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
 
-        var startGame = true
-        var cancelGame = false
+        var isGameStart = true
+        var isGameCancel = false
         var scoreOfFirstTeam: Int = 0
         var scoreOfSecondTeam: Int = 0
     }
@@ -29,56 +28,81 @@ class ScoreScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_score_screen)
-        startGame = true
-        cancelGame = false
+        setupViews()
+        setupButtomListener()
+        startGame()
+    }
+
+    fun setupViews() {
+        isGameStart = true
+        isGameCancel = false
         scoreOfFirstTeam = 0
         scoreOfSecondTeam = 0
         tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
         tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
-        Log.d("CustomDebug", "OnCreate 1st, startGame= $startGame")
         val firstTeam: String = intent.getStringExtra("firstTeam").toString()
         val secondTeam: String = intent.getStringExtra("secondTeam").toString()
         tvNameOfFirstTeam.text = firstTeam
         tvNameOfSecondTeam.text = secondTeam
-        Log.d(
-            "CustomDebug",
-            "OnCreate 1st, firstTeamCompanion= $firstTeam, secondTeamCompanion= $secondTeam"
-        )
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (startGame) {
+    fun startGame() {
+
+        if (isGameStart && !isGameCancel) {
+            Log.d("CustomLOG", "1st if = isGameStart $isGameStart && isGameCancel $isGameCancel")
             btnAddPointToFirtsTeam.isClickable = true
             btnAddPointToSecondTeam.isClickable = true
             timeCalculation()
-            Log.d("CustomDebug", "OnStart 1st, startGame= $startGame")
-            btnAddPointToFirtsTeam.setOnClickListener {
-                scoreOfFirstTeam++
-            }
-            btnAddPointToSecondTeam.setOnClickListener {
-                scoreOfSecondTeam++
-            }
-            btnCancelGame.setOnClickListener {
-                startGame = false
-                cancelGame = true
-            }
-        } else {
+        }
+        if (!isGameStart && !isGameCancel) {
+            Log.d("CustomLOG", "2nd if = isGameStart $isGameStart && isGameCancel $isGameCancel")
             btnAddPointToFirtsTeam.isClickable = false
             btnAddPointToSecondTeam.isClickable = false
             btnAddPointToFirtsTeam.isVisible = false
             btnAddPointToSecondTeam.isVisible = false
-            //Toast.makeText(this, "Game is over", Toast.LENGTH_SHORT)
-            if (!cancelGame && !startGame) {
-                btnCancelGame.isVisible = false
-                scoreComorison()
-            }
+            btnCancelGame.isVisible = false
+            scoreComparison()
+        }
+        if (isGameStart && isGameCancel) {
+            Log.d("CustomLOG", "3rd if = isGameStart $isGameStart && isGameCancel $isGameCancel")
+            //isGameStart = false
+            tvCountdownTimer.isVisible = false
+            tvGameIsCanceled.isVisible = true
+            btnAddPointToFirtsTeam.isClickable = false
+            btnAddPointToSecondTeam.isClickable = false
+            btnAddPointToFirtsTeam.isVisible = false
+            btnAddPointToSecondTeam.isVisible = false
+            btnCancelGame.isVisible= false
+            btnGotoLOWFromSS.isVisible = true
+            btnGotoMainFromSS.isVisible = true
+            setupButtomListener()
+        }
+    }
 
+    fun setupButtomListener() {
+        btnAddPointToFirtsTeam.setOnClickListener {
+            scoreOfFirstTeam++
+        }
+        btnAddPointToSecondTeam.setOnClickListener {
+            scoreOfSecondTeam++
+        }
+        btnCancelGame.setOnClickListener {
+            Log.d("CustomLOG", "btnCancelGame.setOnClickListener = isGameCancel $isGameCancel")
+            // isGameStart = false
+            isGameCancel = true
+            startGame()
+            Log.d("CustomLOG", "btnCancelGame.setOnClickListener = isGameCancel $isGameCancel")
+        }
+        btnGotoMainFromSS.setOnClickListener {
+            MainActivity.start(this)
+        }
+        btnGotoLOWFromSS.setOnClickListener {
+            ListOfWinnersActivity.start(this)
         }
     }
 
     fun timeCalculation() {
-        object : CountDownTimer(4000, 1000) {
+        object : CountDownTimer(8000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 tvCountdownTimer.text = "Timer: " + millisUntilFinished / 1000
                 tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
@@ -86,31 +110,26 @@ class ScoreScreenActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                //Toast.makeText(, "TIME IS UP", Toast.LENGTH_SHORT).show()
-                Log.d("CustomDebug", "onFinish, TIME IS UP")
-                startGame = false
-                Log.d("CustomDebug", "onFinish, startGame ==$startGame")
+                isGameStart = false
                 tvCountdownTimer.text = "Timer: " + "is UP"
-                onStart()
+                //onStart()
+                startGame()
             }
         }.start()
     }
 
-    fun scoreComorison() {
+    fun scoreComparison() {
         val firstTeam: String = intent.getStringExtra("firstTeam").toString()
         if (scoreOfFirstTeam > scoreOfSecondTeam) {
             Winner.listOfWinner.add(Winner(firstTeam, scoreOfFirstTeam))
             val intent = Intent(this, WinnerScreenActivity::class.java)
             intent.putExtra("winner", firstTeam)
             intent.putExtra("score", scoreOfFirstTeam.toString())
-            Log.d("CustomDebug", "scoreComorison $scoreOfFirstTeam > $scoreOfSecondTeam")
             startActivity(intent)
         }
         if (scoreOfFirstTeam < scoreOfSecondTeam) {
             val secondTeam: String = intent.getStringExtra("secondTeam").toString()
             Winner.listOfWinner.add(Winner(secondTeam, scoreOfSecondTeam))
-          //  adapter.notifyItemInserted(person.listOfRelatives.size - 1)
-            Log.d("CustomDebug", "scoreComorison $scoreOfFirstTeam < $scoreOfSecondTeam")
             val intent = Intent(this, WinnerScreenActivity::class.java)
             intent.putExtra("winner", secondTeam)
             intent.putExtra("score", scoreOfSecondTeam.toString())
@@ -118,7 +137,6 @@ class ScoreScreenActivity : AppCompatActivity() {
         }
         if (scoreOfFirstTeam == scoreOfSecondTeam) {
             val intent = Intent(this, WinnerScreenActivity::class.java)
-            Log.d("CustomDebug", "scoreComorison $scoreOfFirstTeam < $scoreOfSecondTeam")
             intent.putExtra("winner", "No winner in this game")
             intent.putExtra("score", "The score is tie")
             startActivity(intent)
