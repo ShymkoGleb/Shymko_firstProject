@@ -48,7 +48,7 @@ class WinnerScreenActivity : AppCompatActivity() {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                "The winner of this game is $winner, with the score: $score"
+                "The winner of this game is '$winner', with the score: $score"
             )
             type = "text/plain"
         }

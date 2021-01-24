@@ -142,4 +142,9 @@ class ScoreScreenActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+  /*  override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong("millisLeft",mtimeLo)
+    }*/
 }

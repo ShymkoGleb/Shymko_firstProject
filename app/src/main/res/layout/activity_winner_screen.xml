@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient1"
     tools:context=".Activity.WinnerScreenActivity">
 
     <TextView
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="The winner is:"
-        android:textSize="36sp"
+        android:textSize="26sp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +24,8 @@
         android:layout_height="wrap_content"
         android:hint="Winner"
         android:textSize="36sp"
+        android:gravity="center"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/tvTEXTTheWinnerIs"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="With the score:"
-        android:textSize="36sp"
+        android:textSize="26sp"
         app:layout_constraintTop_toBottomOf="@id/tvWinner"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Score"
+        android:gravity="center"
         android:textSize="36sp"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/tvTEXTWithTheScore"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +80,7 @@
         android:layout_height="wrap_content"
         android:text="Share result of game"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="100dp"
+      app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="10dp"/>
 
