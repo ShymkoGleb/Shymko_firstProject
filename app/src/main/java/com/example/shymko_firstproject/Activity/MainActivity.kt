@@ -35,9 +35,11 @@ class   MainActivity : AppCompatActivity() {
         btnAddTeamsAndStartGame.setOnClickListener {
             val nameOfFirstTeam = etNameOfFirstTeam.text.toString()
             val nameOfSecondTeam = etNameOfSecondTeam.text.toString()
+            var startNewGameFlag = true
             val intent = Intent(this, ScoreScreenActivity::class.java)
             intent.putExtra("firstTeam", nameOfFirstTeam)
             intent.putExtra("secondTeam", nameOfSecondTeam)
+            intent.putExtra("startNewGameFlag", startNewGameFlag)
             startActivity(intent)
         }
         btnGotoLOWFromMain.setOnClickListener {

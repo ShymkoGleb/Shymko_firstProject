@@ -19,7 +19,7 @@ class ScoreScreenActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
 
-        val TIME_CONST: Long = 15000
+        val TIME_CONST: Long = 5000
         var isGameStart = true
         var isGameCancel = false
         var scoreOfFirstTeam: Int = 0
@@ -36,16 +36,21 @@ class ScoreScreenActivity : AppCompatActivity() {
     }
 
     fun setupViews() {
-        isGameStart = true
-        isGameCancel = false
-        scoreOfFirstTeam = 0
-        scoreOfSecondTeam = 0
-        tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
-        tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
-        val firstTeam: String = intent.getStringExtra("firstTeam").toString()
-        val secondTeam: String = intent.getStringExtra("secondTeam").toString()
-        tvNameOfFirstTeam.text = firstTeam
-        tvNameOfSecondTeam.text = secondTeam
+        var startNewGameFlag: Boolean = intent.getBooleanExtra("startNewGameFlag",false)
+        if (startNewGameFlag){
+            isGameStart = true
+            isGameCancel = false
+            scoreOfFirstTeam = 0
+            scoreOfSecondTeam = 0
+            timeForTimer = TIME_CONST
+            tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
+            tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
+            val firstTeam: String = intent.getStringExtra("firstTeam").toString()
+            val secondTeam: String = intent.getStringExtra("secondTeam").toString()
+            tvNameOfFirstTeam.text = firstTeam
+            tvNameOfSecondTeam.text = secondTeam
+            startNewGameFlag = false
+        }
     }
 
     fun setupButtomListener() {
@@ -98,6 +103,8 @@ class ScoreScreenActivity : AppCompatActivity() {
             btnCancelGame.isVisible = false
             btnGotoLOWFromSS.isVisible = true
             btnGotoMainFromSS.isVisible = true
+            btnGotoLOWFromSS.isClickable = true
+            btnGotoMainFromSS.isClickable = true
         }
     }
 
@@ -158,7 +165,7 @@ class ScoreScreenActivity : AppCompatActivity() {
         isGameStart = savedInstanceState.getBoolean("isGameStart")
         isGameCancel = savedInstanceState.getBoolean("isGameCancel")
         if(isGameStart){
-        timeCalculation()
+            startGame()
         }
     }
 }
