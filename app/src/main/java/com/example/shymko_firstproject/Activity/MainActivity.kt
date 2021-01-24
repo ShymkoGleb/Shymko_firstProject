@@ -40,6 +40,7 @@ class   MainActivity : AppCompatActivity() {
             intent.putExtra("firstTeam", nameOfFirstTeam)
             intent.putExtra("secondTeam", nameOfSecondTeam)
             intent.putExtra("startNewGameFlag", startNewGameFlag)
+            ScoreScreenActivity.isScoreComparisonDone = false
             startActivity(intent)
         }
         btnGotoLOWFromMain.setOnClickListener {
