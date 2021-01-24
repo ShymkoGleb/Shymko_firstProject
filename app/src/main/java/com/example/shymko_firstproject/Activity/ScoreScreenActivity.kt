@@ -36,19 +36,19 @@ class ScoreScreenActivity : AppCompatActivity() {
         setupViews()
         setupButtomListener()
         startGame()
-        Log.d("CustomLOG", "onCreate, isGameStart = $isGameStart, isGameCancel = $isGameCancel, isTimerRun = $isTimerRun")
+        Log.d("CustomLOG", "onCreate, isGameStart = $isGameStart, isGameCancel = $isGameCancel, isTimerRun = $isTimerRun, isScoreComparisonDone = $isScoreComparisonDone")
     }
 
     fun setupViews() {
         var startNewGameFlag: Boolean = intent.getBooleanExtra("startNewGameFlag", false)
         Log.d(
             "CustomLOG",
-            "setupViews  !startNewGameFlag = $startNewGameFlag  &&  isGameStart $isGameStart"
+            "setupViews, startNewGameFlag = $startNewGameFlag  &&  isGameStart = $isGameStart, isTimerRun = $isTimerRun && isGameCancel $isGameCancel"
         )
-        if (startNewGameFlag && !isGameStart && !isTimerRun) {
+        if (!isGameStart && !isTimerRun && !isGameCancel) {
             Log.d(
                 "CustomLOG",
-                "setupViews  !startNewGameFlag = $startNewGameFlag  &&  isGameStart $isGameStart"
+                "setupViews 1st if, startNewGameFlag = $startNewGameFlag  &&  isGameStart = $isGameStart, isTimerRun = $isTimerRun && isGameCancel $isGameCancel"
             )
             isGameStart = true
             isGameCancel = false
@@ -61,13 +61,29 @@ class ScoreScreenActivity : AppCompatActivity() {
             val secondTeam: String = intent.getStringExtra("secondTeam").toString()
             tvNameOfFirstTeam.text = firstTeam
             tvNameOfSecondTeam.text = secondTeam
-            startNewGameFlag = false
         }
 
-        if (!startNewGameFlag && isGameStart) {
+        if (!isGameStart && isGameCancel) {
+            tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
+            tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
+            val firstTeam: String = intent.getStringExtra("firstTeam").toString()
+            val secondTeam: String = intent.getStringExtra("secondTeam").toString()
+            tvNameOfFirstTeam.text = firstTeam
+            tvNameOfSecondTeam.text = secondTeam
+            tvCountdownTimer.isVisible = false
+            tvGameIsCanceled.isVisible = true
+            btnAddPointToFirtsTeam.isClickable = false
+            btnAddPointToSecondTeam.isClickable = false
+            btnAddPointToFirtsTeam.isVisible = false
+            btnAddPointToSecondTeam.isVisible = false
+            btnCancelGame.isVisible = false
+            btnGotoLOWFromSS.isVisible = true
+            btnGotoMainFromSS.isVisible = true
+            btnGotoLOWFromSS.isClickable = true
+            btnGotoMainFromSS.isClickable = true
             Log.d(
                 "CustomLOG",
-                "setupViews  !startNewGameFlag = $startNewGameFlag  &&  isGameStart $isGameStart"
+                "setupViews 2nd if, startNewGameFlag = $startNewGameFlag  &&  isGameStart = $isGameStart, isTimerRun = $isTimerRun && isGameCancel $isGameCancel"
             )
         }
     }
@@ -84,6 +100,8 @@ class ScoreScreenActivity : AppCompatActivity() {
             // isGameStart = false
             isGameCancel = true
             countDownTimer.cancel()
+            // isTimerRun=false
+            // isGameStart = false
             startGame()
             Log.d("CustomLOG", "btnCancelGame.setOnClickListener = isGameCancel $isGameCancel")
         }
@@ -105,7 +123,7 @@ class ScoreScreenActivity : AppCompatActivity() {
         }
         /// after counter stop
         if (!isGameStart && !isGameCancel && !isScoreComparisonDone) {
-            Log.d("CustomLOG", "2nd if = isGameStart $isGameStart && isGameCancel $isGameCancel")
+            Log.d("CustomLOG", "2nd if, isGameStart = $isGameStart && isGameCancel = $isGameCancel  && !isScoreComparisonDone = $isScoreComparisonDone")
             btnAddPointToFirtsTeam.isClickable = false
             btnAddPointToSecondTeam.isClickable = false
             btnAddPointToFirtsTeam.isVisible = false

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.shymko_firstproject.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_score_screen.*
 
 /*Game score app:
 //- app consists of 4 screens: enter 2 teams screen, score screen, winner screen, list of winners screen
@@ -41,6 +42,9 @@ class   MainActivity : AppCompatActivity() {
             intent.putExtra("secondTeam", nameOfSecondTeam)
             intent.putExtra("startNewGameFlag", startNewGameFlag)
             ScoreScreenActivity.isScoreComparisonDone = false
+            ScoreScreenActivity.isGameCancel = false
+            ScoreScreenActivity.isGameStart = false
+            ScoreScreenActivity.isTimerRun = false
             startActivity(intent)
         }
         btnGotoLOWFromMain.setOnClickListener {
