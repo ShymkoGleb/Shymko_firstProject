@@ -40,6 +40,7 @@ class ScoreScreenActivity : AppCompatActivity() {
     }
 
     fun setupViews() {
+        // first run //
         if (!isGameStart && !isTimerRun && !isGameCancel) {
             isGameStart = true
             isGameCancel = false
@@ -48,7 +49,7 @@ class ScoreScreenActivity : AppCompatActivity() {
             timeForTimer = TIME_CONST
             setupTeamsAndScoreTV()
         }
-
+        // if button cancel was pressed //
         if (!isGameStart && isGameCancel) {
             setupTeamsAndScoreTV()
             setupButtonsAfterCancel()
@@ -101,6 +102,15 @@ class ScoreScreenActivity : AppCompatActivity() {
             ListOfWinnersActivity.start(this)
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        isGameStart = false
+        countDownTimer.cancel()
+        MainActivity.start(this)
+
+    }
+
 
     private fun startGame() {
         /// start the game///
