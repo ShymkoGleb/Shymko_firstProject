@@ -2,12 +2,10 @@ package com.example.shymko_firstproject.Activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.shymko_firstproject.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_score_screen.*
 
 /*Game score app:
 //- app consists of 4 screens: enter 2 teams screen, score screen, winner screen, list of winners screen
@@ -18,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_score_screen.*
 // user can clear the list of winners
 // user can share results of the game*/
 
-class   MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     companion object {
         fun start(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
@@ -32,7 +30,7 @@ class   MainActivity : AppCompatActivity() {
         setupButtomListener()
     }
 
-    fun setupButtomListener(){
+    fun setupButtomListener() {
         btnAddTeamsAndStartGame.setOnClickListener {
             val nameOfFirstTeam = etNameOfFirstTeam.text.toString()
             val nameOfSecondTeam = etNameOfSecondTeam.text.toString()
@@ -48,7 +46,7 @@ class   MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         btnGotoLOWFromMain.setOnClickListener {
-        ListOfWinnersActivity.start(this)
+            ListOfWinnersActivity.start(this)
         }
     }
 }

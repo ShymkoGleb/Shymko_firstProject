@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.shymko_firstproject.R
@@ -19,7 +18,7 @@ class ScoreScreenActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
 
-        val TIME_CONST: Long = 10000
+        val TIME_CONST: Long = 11000
         var isGameStart = false
         var isGameCancel = false
         var isTimerRun = false
@@ -28,6 +27,8 @@ class ScoreScreenActivity : AppCompatActivity() {
         var scoreOfSecondTeam: Int = 0
         var timeForTimer = TIME_CONST
         lateinit var countDownTimer: CountDownTimer
+        var firstTeam: String? = null
+        var secondTeam: String? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,74 +37,62 @@ class ScoreScreenActivity : AppCompatActivity() {
         setupViews()
         setupButtomListener()
         startGame()
-        Log.d("CustomLOG", "onCreate, isGameStart = $isGameStart, isGameCancel = $isGameCancel, isTimerRun = $isTimerRun, isScoreComparisonDone = $isScoreComparisonDone")
     }
 
     fun setupViews() {
-        var startNewGameFlag: Boolean = intent.getBooleanExtra("startNewGameFlag", false)
-        Log.d(
-            "CustomLOG",
-            "setupViews, startNewGameFlag = $startNewGameFlag  &&  isGameStart = $isGameStart, isTimerRun = $isTimerRun && isGameCancel $isGameCancel"
-        )
         if (!isGameStart && !isTimerRun && !isGameCancel) {
-            Log.d(
-                "CustomLOG",
-                "setupViews 1st if, startNewGameFlag = $startNewGameFlag  &&  isGameStart = $isGameStart, isTimerRun = $isTimerRun && isGameCancel $isGameCancel"
-            )
             isGameStart = true
             isGameCancel = false
             scoreOfFirstTeam = 0
             scoreOfSecondTeam = 0
             timeForTimer = TIME_CONST
-            tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
-            tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
-            val firstTeam: String = intent.getStringExtra("firstTeam").toString()
-            val secondTeam: String = intent.getStringExtra("secondTeam").toString()
-            tvNameOfFirstTeam.text = firstTeam
-            tvNameOfSecondTeam.text = secondTeam
+            setupTeamsAndScoreTV()
         }
 
         if (!isGameStart && isGameCancel) {
-            tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
-            tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
-            val firstTeam: String = intent.getStringExtra("firstTeam").toString()
-            val secondTeam: String = intent.getStringExtra("secondTeam").toString()
-            tvNameOfFirstTeam.text = firstTeam
-            tvNameOfSecondTeam.text = secondTeam
-            tvCountdownTimer.isVisible = false
-            tvGameIsCanceled.isVisible = true
-            btnAddPointToFirtsTeam.isClickable = false
-            btnAddPointToSecondTeam.isClickable = false
-            btnAddPointToFirtsTeam.isVisible = false
-            btnAddPointToSecondTeam.isVisible = false
-            btnCancelGame.isVisible = false
-            btnGotoLOWFromSS.isVisible = true
-            btnGotoMainFromSS.isVisible = true
-            btnGotoLOWFromSS.isClickable = true
-            btnGotoMainFromSS.isClickable = true
-            Log.d(
-                "CustomLOG",
-                "setupViews 2nd if, startNewGameFlag = $startNewGameFlag  &&  isGameStart = $isGameStart, isTimerRun = $isTimerRun && isGameCancel $isGameCancel"
-            )
+            setupTeamsAndScoreTV()
+            setupButtonsAfterCancel()
         }
     }
 
-    fun setupButtomListener() {
+    private fun setupTeamsAndScoreTV() {
+        firstTeam = intent.getStringExtra("firstTeam").toString()
+        secondTeam = intent.getStringExtra("secondTeam").toString()
+        tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
+        tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
+        tvNameOfFirstTeam.text = firstTeam
+        tvNameOfSecondTeam.text = secondTeam
+    }
+
+    private fun setupButtonsAfterCancel() {
+        tvCountdownTimer.isVisible = false
+        tvGameIsCanceled.isVisible = true
+        btnAddPointToFirtsTeam.isClickable = false
+        btnAddPointToSecondTeam.isClickable = false
+        btnAddPointToFirtsTeam.isVisible = false
+        btnAddPointToSecondTeam.isVisible = false
+        btnCancelGame.isVisible = false
+        btnCancelGame.isClickable = false
+        btnGotoLOWFromSS.isVisible = true
+        btnGotoMainFromSS.isVisible = true
+        btnGotoLOWFromSS.isClickable = true
+        btnGotoMainFromSS.isClickable = true
+    }
+
+    private fun setupButtomListener() {
         btnAddPointToFirtsTeam.setOnClickListener {
             scoreOfFirstTeam++
+            tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
         }
         btnAddPointToSecondTeam.setOnClickListener {
             scoreOfSecondTeam++
+            tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
+
         }
         btnCancelGame.setOnClickListener {
-            Log.d("CustomLOG", "btnCancelGame.setOnClickListener = isGameCancel $isGameCancel")
-            // isGameStart = false
             isGameCancel = true
             countDownTimer.cancel()
-            // isTimerRun=false
-            // isGameStart = false
             startGame()
-            Log.d("CustomLOG", "btnCancelGame.setOnClickListener = isGameCancel $isGameCancel")
         }
         btnGotoMainFromSS.setOnClickListener {
             MainActivity.start(this)
@@ -113,56 +102,39 @@ class ScoreScreenActivity : AppCompatActivity() {
         }
     }
 
-    fun startGame() {
+    private fun startGame() {
         /// start the game///
         if (isGameStart && !isGameCancel) {
-            Log.d("CustomLOG", "1st if = isGameStart $isGameStart && isGameCancel $isGameCancel")
             btnAddPointToFirtsTeam.isClickable = true
             btnAddPointToSecondTeam.isClickable = true
             timeCalculation()
         }
         /// after counter stop
         if (!isGameStart && !isGameCancel && !isScoreComparisonDone) {
-            Log.d("CustomLOG", "2nd if, isGameStart = $isGameStart && isGameCancel = $isGameCancel  && !isScoreComparisonDone = $isScoreComparisonDone")
-            btnAddPointToFirtsTeam.isClickable = false
-            btnAddPointToSecondTeam.isClickable = false
-            btnAddPointToFirtsTeam.isVisible = false
-            btnAddPointToSecondTeam.isVisible = false
-            btnCancelGame.isVisible = false
+            setupButtonsAfterCancel()
             scoreComparison()
             isScoreComparisonDone = true
         }
         /// if cancel is pressed
         if (isGameStart && isGameCancel) {
-            Log.d("CustomLOG", "3rd if = isGameStart $isGameStart && isGameCancel $isGameCancel")
             isGameStart = false
             countDownTimer.cancel()
-            tvCountdownTimer.isVisible = false
-            tvGameIsCanceled.isVisible = true
-            btnAddPointToFirtsTeam.isClickable = false
-            btnAddPointToSecondTeam.isClickable = false
-            btnAddPointToFirtsTeam.isVisible = false
-            btnAddPointToSecondTeam.isVisible = false
-            btnCancelGame.isVisible = false
-            btnGotoLOWFromSS.isVisible = true
-            btnGotoMainFromSS.isVisible = true
-            btnGotoLOWFromSS.isClickable = true
-            btnGotoMainFromSS.isClickable = true
+            setupButtonsAfterCancel()
         }
     }
 
-    fun timeCalculation() {
+    private fun timeCalculation() {
         countDownTimer = object : CountDownTimer(timeForTimer, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                isTimerRun=true
+                isTimerRun = true
                 timeForTimer = millisUntilFinished
-                tvCountdownTimer.text = "Timer: " + millisUntilFinished / 1000
+                tvCountdownTimer.text = "Timer:" + millisUntilFinished / 1000
                 tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
                 tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
             }
 
             override fun onFinish() {
-                isTimerRun=false
+                isTimerRun = false
                 isGameStart = false
                 tvCountdownTimer.text = "Timer: " + "is UP"
                 startGame()
@@ -170,8 +142,8 @@ class ScoreScreenActivity : AppCompatActivity() {
         }.start()
     }
 
-    fun scoreComparison() {
-        if (!isGameStart && !isGameCancel && !isTimerRun&& !isScoreComparisonDone) {
+    private fun scoreComparison() {
+        if (!isGameStart && !isGameCancel && !isTimerRun && !isScoreComparisonDone) {
             if (scoreOfFirstTeam > scoreOfSecondTeam) {
                 val firstTeam: String = intent.getStringExtra("firstTeam").toString()
                 Winner.listOfWinner.add(Winner(firstTeam, scoreOfFirstTeam))
@@ -205,6 +177,8 @@ class ScoreScreenActivity : AppCompatActivity() {
         outState.putBoolean("isTimerRun", isTimerRun)
         outState.putInt("scoreOfFirstTeam", scoreOfFirstTeam)
         outState.putInt("scoreOfSecondTeam", scoreOfSecondTeam)
+        outState.putString("firstTeam", firstTeam)
+        outState.putString("secondTeam", secondTeam)
 
     }
 
@@ -216,9 +190,13 @@ class ScoreScreenActivity : AppCompatActivity() {
         isTimerRun = savedInstanceState.getBoolean("isTimerRun")
         scoreOfFirstTeam = savedInstanceState.getInt("scoreOfFirstTeam")
         scoreOfSecondTeam = savedInstanceState.getInt("scoreOfSecondTeam")
+        firstTeam = savedInstanceState.getString("firstTeam")
+        secondTeam = savedInstanceState.getString("secondTeam")
         if (isGameStart) {
-            //tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
-            //tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
+            tvScoreOfFirstTeam.text = scoreOfFirstTeam.toString()
+            tvScoreOfSecondTeam.text = scoreOfSecondTeam.toString()
+            tvNameOfFirstTeam.text = firstTeam
+            tvNameOfSecondTeam.text = secondTeam
             timeCalculation()
         }
     }

@@ -2,8 +2,8 @@ package com.example.shymko_firstproject.Activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shymko_firstproject.R
 import com.example.shymko_firstproject.Winner
@@ -21,19 +21,18 @@ class ListOfWinnersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_winners)
-        val sortedListOfWinner = Winner.listOfWinner.sortedByDescending {it->it.score }
+        val sortedListOfWinner = Winner.listOfWinner.sortedByDescending { it -> it.score }
 
         val adapter = WinnerAdapter(sortedListOfWinner)
         rvListOfWinners.adapter = adapter
         rvListOfWinners.layoutManager = LinearLayoutManager(this)
         adapter.notifyItemInserted(sortedListOfWinner.size - 1)
-
         setupButtonListeners()
 
     }
 
-    fun setupButtonListeners(){
-        btnGotoMainFromLOW.setOnClickListener{
+    private fun setupButtonListeners() {
+        btnGotoMainFromLOW.setOnClickListener {
             MainActivity.start(this)
         }
         btnClearListOfWinners.setOnClickListener {
